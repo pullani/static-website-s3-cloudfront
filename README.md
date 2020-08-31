@@ -82,13 +82,13 @@ Use the following policy by renaming domain name.
 In 'Properties' tab, choose 'Static Website Hosting'. 
 <img src="https://github.com/pullani/static-website-s3-cloudfront/blob/master/content/index01.jpg?raw=true" alt="content">
 
-Give your web page's index html file name in the index field and error html page in the corresponding one if you have one for the later. 
+Give your web page's index html file name in the index field and if you have one, the error html page in the corresponding field. 
 
 <img src="https://github.com/pullani/static-website-s3-cloudfront/blob/master/content/index02.jpg?raw=true" alt="content">
 
 
 #### Upload the static files to bucket
-Ensure index html is in S3 root directory. Otherwise it is not possible to configure S3 to serve webpage without specifiying its location in the bucket tree. 
+Ensure index html is in bucket root directory. Otherwise it is not possible to configure S3 to serve webpage without specifiying index html location in the URL. 
 
 <img src="https://github.com/pullani/static-website-s3-cloudfront/blob/master/content/files.jpg?raw=true" alt="content">
 
