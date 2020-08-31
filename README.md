@@ -37,9 +37,9 @@ Go to [AWS S3 Management Console]([https://s3.console.aws.amazon.com/s3/home](ht
 
 Steps involved in configuring S3:
 
-- Create an S3 bucket
+- Create an S3 bucket.
 - Configure Public access settings.
-- Add Bucket policy
+- Add Bucket policy.
 - Configure bucket property for static web hosting.
 - Get public end point to the bucket.
 
@@ -50,12 +50,12 @@ Eg. www.mydomain.com
 <img src="https://github.com/pullani/static-website-s3-cloudfront/blob/master/content/create_bucket.jpg?raw=true" alt="content">
 
 #### Set Bucket public access permissions:
-Set the configuration as following:
+Set the configuration as follows:
 
 <img src="https://github.com/pullani/static-website-s3-cloudfront/blob/master/content/public_access.jpg?raw=true" alt="content">
 
 #### Add bucket policy:
-Use the following policy by renaming domain name.
+Use the following policy by renaming the domain name.
 ```
 
 {
@@ -82,36 +82,37 @@ Use the following policy by renaming domain name.
 In 'Properties' tab, choose 'Static Website Hosting'. 
 <img src="https://github.com/pullani/static-website-s3-cloudfront/blob/master/content/index01.jpg?raw=true" alt="content">
 
-Give your web page's index html file name in the index field and if you have one, the error html page in the corresponding field. 
+Give your web page's index html file name in the index field and the error html page (if you have) in the corresponding field. 
 
 <img src="https://github.com/pullani/static-website-s3-cloudfront/blob/master/content/index02.jpg?raw=true" alt="content">
 
 
 #### Upload the static files to bucket
-Ensure index html is in bucket root directory. Otherwise it is not possible to configure S3 to serve webpage without specifiying index html location in the URL. 
+Ensure index html is in the bucket root directory. <b>Otherwise it is not possible to configure S3 to serve webpage without specifiying index html location in the URL.</b> 
 
 <img src="https://github.com/pullani/static-website-s3-cloudfront/blob/master/content/files.jpg?raw=true" alt="content">
 
-Now the website should be accessible via the index html:
+Now the website should be accessible via the index html endpoint. Ensure this.:
 
 <img src="https://github.com/pullani/static-website-s3-cloudfront/blob/master/content/object_url.jpg?raw=true" alt="content">
 
 #### Public endpoint URL for index html:
-The S3 public endpoint to your static website is region specific.
+The S3 public endpoint to your 'static website' (not files) is region specific.
 Refer to [https://docs.aws.amazon.com/general/latest/gr/s3.html](https://docs.aws.amazon.com/general/latest/gr/s3.html) and get your region alias, obtain your bucket endpoint.
 So the endpoint will look like:
 ```
 http://www.mydomain.com.s3-website.your_region.amazonaws.com
 ```
 ```
-Now, your 'region specific' bucket root endpoint will directly serve the index html without user specifying it in the url.  
+Now, your 'region specific' bucket root endpoint will directly serve the index html without user 
+specifying it in the url.  
 i.e., 
 http://www.mydomain.com.s3-website.region.amazonaws.com
 will directly serve you the index html.
 
 For the above to work ensure the index html file is in the bucket root directory.
 ```
-<b>Now check the above endpoint is serving your website as expected on a browser.</b> (Connection will not be secured as the URL is http.)
+<b>Now ensure the above endpoint is serving your website as expected on a browser.</b> (Connection will not be secured as the URL is http.)
 
 Note: 
 A region unspecific endpoint like
@@ -130,24 +131,24 @@ In the next section we will configure CloudFront with our domain to let users ac
 
 ```
 Important:
-For using custom domain names to redirect requests to CloudFront, we need an ACM certificate in the region specifically "US West (N. Virginia)" 
+For using custom domain names to redirect requests to CloudFront, we need an ACM 
+certificate in the region specifically "US West (N. Virginia)" 
 ```
 #### Obtaining certificates:
 We will get a <b>wildcard</b> certificate for our domain. This will help us to use the same certificates across multiple subdomains later.
 
-<img src="https://github.com/pullani/static-website-s3-cloudfront/blob/master/content/acm_cert.jpg?raw=true" alt="content">
-
 Steps:
 - Change the region to 'US West (N. Virginia)' from your ACM home page.
-- Click on 'Request Certificate' and provide <b>*.mydomain.com</b> in the domain field:
-< Image here>
+- Click on 'Request Certificate' and provide <b>*.mydomain.com</b> in the domain field.
+
+<img src="https://github.com/pullani/static-website-s3-cloudfront/blob/master/content/acm_cert.jpg?raw=true" alt="content">
+
 - On the next page select Email verification if you have an email account under your domain name, or otherwise use DNS verification.
 - DNS verification for Godaddy account:
 
 <img src="https://github.com/pullani/static-website-s3-cloudfront/blob/master/content/acm_dns_validation.jpg?raw=true" alt="content">
 
-Once the DNS validation method is selected console will
-ask us to add the CNAME to DNS entry:
+Once the DNS validation method is selected console will ask us to add the CNAME to DNS entry:
 ```
 Name field will look like:
 _c98d6d2cae8dd5688z0u890zd.www.mydomain.com.
@@ -172,7 +173,9 @@ Procedure is to create a 'CloudFront distribution' with the 'Origin domain' as o
 #### Subdomain to redirect traffic to CloudFront 
 ```
 Important:
-Godaddy 'A' name record of root domain '@' cannot be pointed to a URL. If this is ultimately needed for you, consider transferring your domain to a service like Amazon Route53. Route53 allows root domain to be redirected to a URL. 
+Godaddy 'A' name record of root domain '@' cannot be pointed to a URL. If this is ultimately needed 
+for you, consider transferring your domain to a service like Amazon Route53. Route53 allows root 
+domain to be redirected to a URL. 
 ```
 So, for our purpose we will use a subdomain in a CNAME record pointing to our CloudFront URL.
 
