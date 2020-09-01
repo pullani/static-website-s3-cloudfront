@@ -120,7 +120,19 @@ http://www.mydomain.com.s3.amazonaws.com/
 will not serve you the index html unless you specify it in the url like
 http://www.mydomain.com.s3.amazonaws.com/index.html
 
+Or else, if you miss type the region as another:
+Eg.,http://www.mydomain.com.s3-website.wrong-region.amazonaws.com/
+We will get the following response:
 
+```
+400 Bad Request
+Code: IncorrectEndpoint
+Message: The specified bucket exists in another region. Please direct requests to the specified endpoint.
+Endpoint: www.ermahesh.com.s3-website.your-correct-region.amazonaws.com
+RequestId: D10288A5E414FC1D
+HostId: +6gP4HuHND+muIfBn9CIoaV3mg8xsrwCTynW/By37d18E=
+
+```
 
 ## AWS Certificate Manager (ACM) <a name = "aws_acm"></a>
 In the next section we will configure CloudFront with our domain to let users access website directly under our domain name. To proceed, we need SSL certificates for our custom domain. 
