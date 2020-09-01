@@ -103,36 +103,32 @@ So the endpoint will look like:
 ```
 http://www.mydomain.com.s3-website.your_region.amazonaws.com
 ```
-```
-Now, your 'region specific' bucket root endpoint will directly serve the index html without user 
-specifying it in the url.  
-i.e., 
-http://www.mydomain.com.s3-website.region.amazonaws.com
-will directly serve you the index html.
 
-For the above to work ensure the index html file is in the bucket root directory.
-```
-<b>Now ensure the above endpoint is serving your website as expected on a browser.</b> (Connection will not be secured as the URL is http.)
+> Now, your 'region specific' bucket root endpoint will directly serve the index html without user specifying it in the url. <br>
+i.e.,<br>
+http://www.mydomain.com.s3-website.region.amazonaws.com <br>
+will directly serve you the index html. <br> <br>
+(For the above to work ensure the index html file is in the bucket root directory.) <br>
 
-Note: 
-A region unspecific endpoint like
-http://www.mydomain.com.s3.amazonaws.com/
-will not serve you the index html unless you specify it in the url like
-http://www.mydomain.com.s3.amazonaws.com/index.html
+**Now confirm the above endpoint is serving your website as expected on a browser.** (Connection will not be secured as the URL is http.)
 
-Or else, if you miss type the region as another:
-Eg.,http://www.mydomain.com.s3-website.wrong-region.amazonaws.com/
-We will get the following response:
+**Note:** 
+1. A region unspecific endpoint like <br>
+http://www.mydomain.com.s3.amazonaws.com/ <br>
+will not serve you the index html unless you specify it in the url like <br>
+http://www.mydomain.com.s3.amazonaws.com/index.html <br>
 
-```
-400 Bad Request
-Code: IncorrectEndpoint
-Message: The specified bucket exists in another region. Please direct requests to the specified endpoint.
-Endpoint: www.ermahesh.com.s3-website.your-correct-region.amazonaws.com
-RequestId: D10288A5E414FC1D
+2. Or else, if you miss type the region as another: <br>
+Eg.,http://www.mydomain.com.s3-website.wrong-region.amazonaws.com/ <br>
+We will get the following response: <br>
+
+> **400 Bad Request** <br>
+Code: IncorrectEndpoint <br>
+Message: The specified bucket exists in another region. Please direct requests to the specified endpoint. <br>
+Endpoint: www.ermahesh.com.s3-website.your-correct-region.amazonaws.com <br>
+RequestId: D10288A5E414FC1D <br>
 HostId: +6gP4HuHND+muIfBn9CIoaV3mg8xsrwCTynW/By37d18E=
 
-```
 
 ## AWS Certificate Manager (ACM) <a name = "aws_acm"></a>
 In the next section we will configure CloudFront with our domain to let users access website directly under our domain name. To proceed, we need SSL certificates for our custom domain. 
@@ -141,11 +137,10 @@ In the next section we will configure CloudFront with our domain to let users ac
 
 [AWS certificate manager](https://console.aws.amazon.com/acm/home) is a free SSL certificate manager from AWS. Certificates are limited to use within AWS services.
 
-```
-Important:
-For using custom domain names to redirect requests to CloudFront, we need an ACM 
-certificate in the region specifically "US West (N. Virginia)" 
-```
+
+> **Important:**
+For using custom domain names to redirect requests to CloudFront, we need an ACM certificate in the region specifically **"US West (N. Virginia)"** 
+
 #### Obtaining certificates:
 We will get a <b>wildcard</b> certificate for our domain. This will help us to use the same certificates across multiple subdomains later.
 
@@ -183,12 +178,12 @@ Procedure is to create a 'CloudFront distribution' with the 'Origin domain' as o
 
 
 #### Subdomain to redirect traffic to CloudFront 
-```
-Important:
+
+>**Important:**
 Godaddy 'A' name record of root domain '@' cannot be pointed to a URL. If this is ultimately needed 
 for you, consider transferring your domain to a service like Amazon Route53. Route53 allows root 
 domain to be redirected to a URL. 
-```
+
 So, for our purpose we will use a subdomain in a CNAME record pointing to our CloudFront URL.
 
 For example we will use, cdn.mydomain.com
