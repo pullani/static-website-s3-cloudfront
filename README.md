@@ -113,19 +113,16 @@ will directly serve you the index html. <br> <br>
 **Now confirm the above endpoint is serving your website as expected on a browser.** (Connection will not be secured as the URL is http.)
 
 **Note:** 
-1. A region unspecific endpoint like <br>
-http://www.mydomain.com.s3.amazonaws.com/ <br>
-will not serve you the index html unless you specify it in the url like <br>
-http://www.mydomain.com.s3.amazonaws.com/index.html <br>
+1. A region unspecific endpoint like http://www.mydomain.com.s3.amazonaws.com/ <br>
+will not serve you the index html unless you specify it in the url like http://www.mydomain.com.s3.amazonaws.com/index.html <br>
 
-2. Or else, if you miss type the region as another: <br>
-Eg.,http://www.mydomain.com.s3-website.wrong-region.amazonaws.com/ <br>
+2. Or else, if you miss type the region as another: Eg.,http://www.mydomain.com.s3-website.wrong-region.amazonaws.com/ <br>
 We will get the following response: <br>
 
 > **400 Bad Request** <br>
 Code: IncorrectEndpoint <br>
 Message: The specified bucket exists in another region. Please direct requests to the specified endpoint. <br>
-Endpoint: www.ermahesh.com.s3-website.your-correct-region.amazonaws.com <br>
+Endpoint: www.mydomain.com.s3-website.your-correct-region.amazonaws.com <br>
 RequestId: D10288A5E414FC1D <br>
 HostId: +6gP4HuHND+muIfBn9CIoaV3mg8xsrwCTynW/By37d18E=
 
